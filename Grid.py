@@ -1,4 +1,5 @@
 import random
+from termcolor import colored
 from typing import List, Optional
 
 from Tile import TileHint, TileMine, Tile
@@ -57,12 +58,12 @@ class Grid:
         tile.open()
 
     def __str__(self):
-        grid = ""
-        line = 1
+        grid = colored("  " + "|".join([ str(x)for x in range(self.width)]), "green")
+        line = 0
         for x in self.coordinates:
             if x[0] == line:
-                grid += "\n"
+                grid += colored("\n" + str(line) + "|", 'green')
                 line += 1
-            grid += str(self.matrices[x[0]][x[1]])
+            grid += str(self.matrices[x[0]][x[1]]) + "|"
 
         return grid

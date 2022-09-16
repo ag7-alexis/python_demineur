@@ -28,8 +28,6 @@ class MineSweeper(object):
             self.grid.open(y=y, x=x)
         except IndexError:
             print("Out of range")
-        except Exception as e:
-            print(e)
         print(self.grid)
 
     @_is_playing
@@ -39,8 +37,6 @@ class MineSweeper(object):
             self.grid.toggle_flag(x=x, y=y)
         except IndexError:
             print("Out of range")
-        except Exception as e:
-            print(e)
         print(self.grid)
 
 

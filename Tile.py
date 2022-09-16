@@ -49,24 +49,22 @@ class TileHint(Tile):
         return str(count_mines)
 
     def open(self):
-        print("TileHint open")
         super(TileHint, self).open()
-        print('test', self._hint)
         if self.hint != '0':
             return
 
-        print("full open")
         for y in (-1, 0, 1):
             for x in (-1, 0, 1):
                 tile_y = self.y + y
                 tile_x = self.x + x
                 try:
                     self.grid.open(y=tile_y, x=tile_x)
-                except Exception as e:
-                    print(e)
+                except:
                     continue
 
     def __str__(self):
         if not self.is_open:
             return super(TileHint, self).__str__()
+        if self.hint == "0":
+            return " "
         return self.hint

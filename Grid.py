@@ -31,19 +31,20 @@ class Grid:
             return None
 
     def open(self, y, x):
-        tile = self.matrices[y][x]
-
+        tile = self.get_tile(x=x, y=y)
+        if tile is None:
+            return
         if tile.is_flagged:
             raise Exception("Tile already flaged")
 
-        tile.open()
+        self._open_full(tile=tile)
         if isinstance(tile, TileMine):
             self.is_lost = True
         else:
             self.remaining = -1
 
     def toggle_flag(self, y, x):
-        tile = self.matrices[y][x]
+        tile = self.get_tile(x=x, y=y)
         if tile.is_open:
             raise Exception("Tile already opened")
 
@@ -52,15 +53,8 @@ class Grid:
     def is_win(self):
         return self.remaining == 0
 
-    def _open_full(self, target_y, target_x):
-        for y in (-1, 0, 1):
-            for x in (-1, 0, 1):
-                tile_y = target_y + y
-                tile_x = target_x + x
-                tile: TileHint = self.get_tile(y=tile_y, x=tile_x)
-                tile.open()
-                if tile.hint == 0:
-                    self._open_full(target_y=tile_y, target_x=tile_x)
+    def _open_full(self, tile: Tile):
+        tile.open()
 
     def __str__(self):
         grid = ""

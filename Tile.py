@@ -49,6 +49,7 @@ class TileHint(Tile):
         return str(count_mines)
 
     def open(self):
+        super(TileHint, self).open()
         if self._hint != 0:
             return
 

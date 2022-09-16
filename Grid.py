@@ -55,9 +55,12 @@ class Grid:
     def _open_full(self, target_y, target_x):
         for y in (-1, 0, 1):
             for x in (-1, 0, 1):
-                tile = self.get_tile(y=target_y + y, x=target_x + x)
+                tile_y = target_y + y
+                tile_x = target_x + x
+                tile: TileHint = self.get_tile(y=tile_y, x=tile_x)
                 tile.open()
-                if tile.
+                if tile.hint == 0:
+                    self._open_full(target_y=tile_y, target_x=tile_x)
 
     def __str__(self):
         grid = ""

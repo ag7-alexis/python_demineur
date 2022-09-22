@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+{% with count_users=users|length %}
+<body>
+<h1>Users</h1>
+
+{% if count_users == 0 %}
+<p>Il n'y a pas d'utilisateur</p>
+{% else %}
+<p>Il y a {{count_users}} utilisateur{% if count_users > 1%}s{%endif%}</p>
+<table>
+    <thead>
+    <tr>
+        <td>email</td>
+        {% for size in sizes  %}
+            <td>{{size.name}}</td>
+        {% endfor %}
+    </tr>
+    </thead>
+    {% for user in users %}
+    <tr>
+        <td>{{user.email_address}}</td>
+        {% for size in sizes  %}
+        {% if size.name in user.score %}
+        {% with score=user.score|get_value:size.name%}
+            <td>{{ score.time}}</td>
+        {% endwith %}
+        {% else %}
+        <td>-</td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor%}
+</table>
+{% endif%}
+</body>
+{% endwith %}
+</html>
